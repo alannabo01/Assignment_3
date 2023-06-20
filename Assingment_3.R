@@ -37,8 +37,7 @@ displayProgress <- function(hidden_word) {
 playHangman <- function() {
   word_list <- readWordList("word_list.txt")
   secret_word <- chooseRandomWord(word_list)
-  hidden_word <- strsplit(secret_word, "")[[1]]
-  hidden_word[hidden_word != " "] <- "_"
+  hidden_word <- rep("_", nchar(secret_word))
   
   max_tries <- 6  # Maximum number of wrong guesses allowed
   wrong_guesses <- 0
@@ -86,3 +85,4 @@ playHangman <- function() {
 
 # Start the game
 playHangman()
+
