@@ -21,7 +21,7 @@ isLetter <- function(char) {
 updateHiddenWord <- function(secret_word, hidden_word, letter) {
   for (i in 1:length(secret_word)) {
     if (tolower(secret_word[i]) == tolower(letter)) {
-      hidden_word[i] <- secret_word[i]
+      hidden_word <- substring(hidden_word, i, i) <- secret_word[i]  # Update the corresponding element of hidden_word
     }
   }
   return(hidden_word)
@@ -85,4 +85,3 @@ playHangman <- function() {
 
 # Start the game
 playHangman()
-
