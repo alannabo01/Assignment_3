@@ -1,5 +1,8 @@
 # Hangman Game
 
+# Loading required packages
+library(stringr)
+
 # Reading the word list from the file
 word_list <- readLines("word_list.txt")
 
@@ -31,7 +34,7 @@ while (TRUE) {
   # Ask for user input
   guess <- readline("Enter a letter or the full word: ")
   
-  # Validate user input
+  # Validating user input
   if (str_detect(guess, "[^a-zA-Z]") || nchar(guess) != 1) {
     cat("Invalid input. Please enter a single letter.\n")
     next
