@@ -31,9 +31,9 @@ while (TRUE) {
   # Ask for user input
   guess <- readline("Enter a letter or the full word: ")
   
-  # Validating user input
-  if (str_detect(guess, "[^a-zA-Z]")) {
-    cat("Invalid input. Please enter a single letter or the full word.\n")
+  # Validate user input
+  if (str_detect(guess, "[^a-zA-Z]") || nchar(guess) != 1) {
+    cat("Invalid input. Please enter a single letter.\n")
     next
   }
   
