@@ -72,8 +72,8 @@ while (TRUE) {
   }
   
   # Display the current state of the secret word
-  current_state <- str_replace_all(secret_word, paste0("[^", guessed_letters, "]"), "_")
-  cat("Current state:", paste(current_state, collapse = " "), "\n")
+  current_state <- str_replace_all(secret_word, paste0("[^", paste(guessed_letters, collapse = ""), " ]"), "_")
+  cat("Current state:", current_state, "\n")
   
   # Check if the user has won or lost
   if (all(str_split(current_state, "")[[1]] == str_split(secret_word, "")[[1]])) {
@@ -90,4 +90,5 @@ while (TRUE) {
 }
 
 # End of the game
+
 
