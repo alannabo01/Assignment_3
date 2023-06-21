@@ -1,60 +1,57 @@
 # Hangman Game
 
-# Load required packages
-library(stringr)
-
-# Read the word list from the file
+# Reading the word list from the file
 word_list <- readLines("word_list.txt")
 
-# Check if the word list is empty
+# Checking if the word list is empty
 if (length(word_list) == 0) {
   stop("Word list is empty. Please populate the 'word_list.txt' file with words.")
 }
 
-# Choose a random word from the list
+# Choosing a random word from the list
 secret_word <- sample(word_list, 1)
 
-# Count the number of characters in the secret word
+# Counting the number of characters in the secret word
 word_length <- nchar(secret_word)
 
-# Set the number of maximum wrong guesses
+# Setting the number of maximum wrong guesses
 max_wrong_guesses <- 6
 
-# Initialize variables
+# Initializing variables
 guessed_letters <- character(0)
 wrong_guesses <- 0
 
-# Display initial information to the user
+# Displaying initial information to the user
 cat("Welcome to Hangman!\n")
 cat("The category is: Wild Cats\n")
 cat("The secret word has", word_length, "letters.\n")
 
-# Game loop
+# Creating the game loop
 while (TRUE) {
   # Ask for user input
   guess <- readline("Enter a letter or the full word: ")
   
-  # Validate user input
+  # Validating user input
   if (str_detect(guess, "[^a-zA-Z]")) {
     cat("Invalid input. Please enter a single letter or the full word.\n")
     next
   }
   
-  # Convert the guess to lowercase
+  # Converting the guess to lowercase
   guess <- tolower(guess)
   
-  # Check if the guess is a single letter or the full word
+  # Checking if the guess is a single letter or the full word
   if (nchar(guess) == 1) {
-    # Check if the letter has already been guessed
+    # Checking if the letter has already been guessed
     if (guess %in% guessed_letters) {
       cat("You have already guessed that letter. Try again.\n")
       next
     }
     
-    # Add the guessed letter to the list
+    # Adding the guessed letter to the list
     guessed_letters <- c(guessed_letters, guess)
     
-    # Check if the guessed letter is in the secret word
+    # Checking if the guessed letter is in the secret word
     if (str_detect(secret_word, guess)) {
       cat("Correct guess!\n")
     } else {
@@ -62,7 +59,7 @@ while (TRUE) {
       wrong_guesses <- wrong_guesses + 1
     }
   } else {
-    # Check if the full word guess is correct
+    # Checking if the full word guess is correct
     if (guess == secret_word) {
       cat("Congratulations! You guessed the word correctly.\n")
       break
@@ -72,11 +69,11 @@ while (TRUE) {
     }
   }
   
-  # Display the current state of the secret word
+  # Displaying the current state of the secret word
   current_state <- str_replace_all(secret_word, paste0("[^", paste(guessed_letters, collapse = ""), " ]"), "_")
   cat("Current state:", current_state, "\n")
   
-  # Check if the user has won or lost
+  # Checking if the user has won or lost
   if (all(str_split(current_state, "")[[1]] == str_split(secret_word, "")[[1]])) {
     cat("Congratulations! You guessed the word correctly.\n")
     break
@@ -85,7 +82,7 @@ while (TRUE) {
     break
   }
   
-  # Display remaining tries
+  # Displaying remaining tries
   remaining_tries <- max_wrong_guesses - wrong_guesses
   cat("Remaining tries:", remaining_tries, "\n")
 }
