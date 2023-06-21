@@ -26,6 +26,7 @@ wrong_guesses <- 0
 
 # Display initial information to the user
 cat("Welcome to Hangman!\n")
+cat("The category is: Wild Cats\n")
 cat("The secret word has", word_length, "letters.\n")
 
 # Game loop
