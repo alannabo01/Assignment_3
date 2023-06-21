@@ -1,8 +1,3 @@
-# Hangman Game
-
-# Loading required packages
-library(stringr)
-
 # Reading the word list from the file
 word_list <- readLines("word_list.txt")
 
@@ -35,7 +30,7 @@ while (TRUE) {
   guess <- readline("Enter a letter or the full word: ")
   
   # Validating user input
-  if (str_detect(guess, "[^a-zA-Z]") || nchar(guess) != 1) {
+  if (!grepl("^[a-zA-Z]$", guess)) {
     cat("Invalid input. Please enter a single letter.\n")
     next
   }
@@ -55,7 +50,7 @@ while (TRUE) {
     guessed_letters <- c(guessed_letters, guess)
     
     # Checking if the guessed letter is in the secret word
-    if (str_detect(secret_word, guess)) {
+    if (grepl(guess, secret_word)) {
       cat("Correct guess!\n")
     } else {
       cat("Wrong guess!\n")
@@ -73,11 +68,11 @@ while (TRUE) {
   }
   
   # Displaying the current state of the secret word
-  current_state <- str_replace_all(secret_word, paste0("[^", paste(guessed_letters, collapse = ""), " ]"), "_")
+  current_state <- gsub(paste0("[^", paste(guessed_letters, collapse = ""), " ]"), "_", secret_word)
   cat("Current state:", current_state, "\n")
   
   # Checking if the user has won or lost
-  if (all(str_split(current_state, "")[[1]] == str_split(secret_word, "")[[1]])) {
+  if (all(strsplit(current_state, "")[[1]] == strsplit(secret_word, "")[[1]])) {
     cat("Congratulations! You guessed the word correctly.\n")
     break
   } else if (wrong_guesses == max_wrong_guesses) {
@@ -91,5 +86,3 @@ while (TRUE) {
 }
 
 # End of the game
-
-
